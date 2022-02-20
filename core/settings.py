@@ -16,7 +16,7 @@ SECRET_KEY = '3xk*)i0x#k$btl=(6q)te!19=mp6d)lm1+zl#ts4ewxi3-!vm_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['yourdomain.com', '127.0.0.1']
+ALLOWED_HOSTS = ['yourdomain.com', '127.0.0.1','localhost']
 
 
 # Application definition
@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'store',
     'basket',
     'account',
+    'payment',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +133,6 @@ LOGIN_URL = '/account/login/'
 
 # Email setting
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Basket session ID
+BASKET_SESSION_ID = 'basket'

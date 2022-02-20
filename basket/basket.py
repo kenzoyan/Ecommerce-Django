@@ -1,10 +1,9 @@
 
-from unicodedata import decimal
 
 from decimal import Decimal
 
 from store.models import Product
-
+from django.conf import settings
 
 class Basket():
     """
@@ -14,10 +13,10 @@ class Basket():
     def __init__(self, request):
 
         self.session = request.session
-        basket = self.session.get('skey')
+        basket = self.session.get(settings.BASKET_SESSION_ID)
 
-        if 'skey' not in request.session:
-            basket = self.session['skey'] = {}
+        if settings.BASKET_SESSION_ID not in request.session:
+            basket = self.session[settings.BASKET_SESSION_ID] = {}
 
         self.basket = basket
 
@@ -69,7 +68,17 @@ class Basket():
             yield item
 
     def get_total_price(self):
-        return sum( Decimal(item['price']) * item['qty'] for item in self.basket.values())
+
+        subtotal = sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
+        
+        if subtotal == 0:
+            shipping = Decimal(0.00)
+        else:
+            shipping = Decimal(9.99)
+
+        total = subtotal + Decimal(shipping)
+        
+        return total
 
     def delete(self, product_id):
         """
@@ -90,3 +99,8 @@ class Basket():
             self.basket[product_id]['qty'] = int(product_qty)
         
         self.save()
+
+    def clear(self):
+        del self.session[settings.BASKET_SESSION_ID]
+        self.save()
+
