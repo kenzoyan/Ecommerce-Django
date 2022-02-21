@@ -13,6 +13,8 @@ create model; how to test using coverage; find examples in bootstrap about css; 
 
 - Day3: Finished Signup with email confirmation; delete&update user; reset psw with email confirmation；payment with Stripe; order&payment connection; show orders in account
 
+- Day4: rearrange some parts in templates; 
+
 ## Reflection
 
 - Day2: Mixing python code and html code in templates are confusing and not that easy to maintain.

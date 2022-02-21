@@ -1,10 +1,7 @@
-{% extends "./base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block title %}Bookstore{% endblock %}
 {% block content %}
-
-
-<main>
 
   <section class="py-5 text-center container">
     <div class="row py-lg-3">
@@ -22,11 +19,15 @@
   <div class="album py-5 bg-light">
     <div class="container">
 
-      <div class="pb-3 h5">Trending</div>
+      <div class="pb-3 h1">Trending</div>
+
+      {% if not products %}
+          <div class="pb-3 h5">All products are running out! </div>
+      {% endif %}
+      
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
-
+  
         {% for product in products %}
-
         <div class="col">
           <div class="card shadow-sm">
             <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}">
@@ -46,8 +47,5 @@
       </div>
     </div>
   </div>
-
-
-</main>
 
 {% endblock %}

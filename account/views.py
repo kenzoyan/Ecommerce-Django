@@ -72,7 +72,7 @@ def account_activate(request, uidb64, token):
 def dashboard(request):
     orders = user_orders(request)
     print(orders)
-    return render(request, 'account/user/dashboard.html', {'orders':orders} )
+    return render(request, 'account/dashboard/dashboard.html', {'orders':orders} )
 
 
 @login_required
@@ -87,7 +87,7 @@ def profile_edit(request):
         user_form = UserEditForm(instance=request.user)
 
     
-    return render(request, 'account/user/profile_edit.html',{'user_form':user_form} )
+    return render(request, 'account/dashboard/profile_edit.html',{'user_form':user_form} )
 
 
 @login_required

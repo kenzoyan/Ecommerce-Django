@@ -1,21 +1,26 @@
-{% extends "../store/base.html" %}
+{% extends "../base.html" %}
 {% load static %}
 {% block title %} Basket Summary {% endblock %}
 
 {% block content %}
-<main class="pt-5">
-  <div class="container" style="max-width: 1000px">
+  <div class="container" >
     <div class="col-12">
-      <h1 class="h2">Your Basket</h1>
+      <h1 class="h2 text-center">Your Basket</h1>
     </div>
-    <div class="col-12">
+    <div class="col-12 text-center" >
       <p>Manage your <b>items</b> in your basket</p>
     </div>
     <hr />
   </div>
-  <div class="container" style="max-width: 1000px">
+
+  <div class="container">
     
     <div class="row g-3">
+      {% if basket|length == 0%}
+      <div class="h4 text-center">Your basket is empty </div>
+      <div class="h4 text-center">Go <a href="{% url 'store:index' %}">Shopping</a> Now ! </div>
+      
+      {% else %}
       <div class="col-12 bg-light p-3 d-flex justify-content-between">
         <div class="d-flex d-flex-inline">
           <div class="pe-3">Order</div>
@@ -34,11 +39,14 @@
         <div class="text-end">
           
           <div class="">Sub Total: <span class="fw-bold">€</span><div id="subtotal" class="d-inline-flex fw-bold">{{basket.get_subtotal_price}}</div></div>
-          <div id="">Shipping <span class="small">(Next day delivery)</span>: <span class="fw-bold">€9.99</span></div>
+          <div >Shipping <span class="small">(Next day delivery)</span>: <span class="fw-bold">€9.99</span></div>
+          <div id="basket-qty" >Total Qty: <div id="basket-qty" class="d-inline-flex fw-bold">{{basket|length}}</div></div>
+
           <div class="pt-2">Total to pay: <span class="fw-bold h5">€</span><span id="total" class="fw-bold h5">{{basket.get_total_price}}</span></div>
           
         </div>
       </div>
+      
       <div class="col-md-5 col-lg-4 order-md-last p-0 order-3">
         <div class="d-grid gap-2 ">
           <a role="button" href="{% url "payment:basket"%}" class="btn btn-success fw-bold" type="button">Checkout</a>
@@ -78,10 +86,10 @@
         {% endwith %} 
         {% endfor %}
       </div>
+      {% endif %}
     </div>
     
   </div>
-</main>
 
 <script>
   $(document).on('click', '.delete-button', function (e) {
@@ -97,8 +105,9 @@
       },
       success: function (json) {
         $('.product-item[data-index="' + prodid + '"]').remove();
-        document.getElementById('subtotal').innerHTML = json.subtotal
+        document.getElementById('subtotal').innerHTML = json.subtotal_price
         document.getElementById('basket-qty').innerHTML = json.qty
+        document.getElementById('total').innerHTML = json.total
       },
       error: function (xhr, errmsg, err) {}
     });
@@ -117,8 +126,9 @@
         action: 'post',
       },
       success: function (json) {
-        document.getElementById('subtotal').innerHTML = json.subtotal
-        document.getElementById('basket-qty').innerHTML = json.qty
+        document.getElementById('subtotal').innerHTML = json.subtotal_price
+        document.getElementById('basket-qty').innerHTML = json.qty // not update ???  //
+        document.getElementById('total').innerHTML = json.total
       },
       error: function (xhr, errmsg, err) {}
     });

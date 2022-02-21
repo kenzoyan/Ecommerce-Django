@@ -67,6 +67,9 @@ class Basket():
             
             yield item
 
+    def get_subtotal_price(self):
+        return sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
+
     def get_total_price(self):
 
         subtotal = sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
@@ -76,7 +79,7 @@ class Basket():
         else:
             shipping = Decimal(9.99)
 
-        total = subtotal + Decimal(shipping)
+        total = round(subtotal + Decimal(shipping),2)
         
         return total
 

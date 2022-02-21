@@ -136,3 +136,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Basket session ID
 BASKET_SESSION_ID = 'basket'
+
+# Stripe Payment
+os.environ.setdefault('STRIPE_PUBLISHABLE_KEY', 'pk_test_51KVIHKHTQ3PmkJesm2TsgtEjgcjDjXcRts03ftlTpiYe5OWxX3j2uogY7VN7touG6BxfsRl1XvNwlEDRSnycqEZ100gLEaFwKP')
+STRIPE_SECRET_KEY = 'sk_test_51KVIHKHTQ3PmkJesXgGdeaqeTI531kPc6JyIwnAt58uvYegR42GGtyntSv3p5zM0LrO1NPZAZyvau47wyc62MXvy00P5y5C86c'
