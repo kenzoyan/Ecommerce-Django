@@ -1,15 +1,14 @@
 # Create your views here.
 
-from tkinter.messagebox import NO
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-
+from django.contrib import messages
 from orders.models import Order
 
 
@@ -17,6 +16,7 @@ from .forms import RegistrationForm, UserEditForm
 from .models import UserBase
 from .tokens import account_activation_token
 from orders.views import user_orders
+from store.models import Product
 
 def account_register(request):
 
@@ -99,5 +99,25 @@ def profile_delete(request):
 
     return redirect('account:delete_confirmation' )
 
+@login_required
+def wishlist(request):
+    products = Product.objects.filter(users_wishlist=request.user)
+    return render(request, 'account/wishlist.html',{'products':products})
 
+
+@login_required
+def add_wishlist(request, id):
+    product = get_object_or_404(Product,id=id)
+    if product.users_wishlist.filter(id=request.user.id).exists():
+        product.users_wishlist.remove(request.user)
+        messages.success(request, "Removed " + product.title + "to your wishlist.", extra_tags='Add')  
+        
+        # extra_lag control text in wishlist button 
+    
+    else:
+        product.users_wishlist.add(request.user)
+        messages.success(request, "Added " + product.title + "to your wishlist.", extra_tags='Remove')
+
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
+    
 

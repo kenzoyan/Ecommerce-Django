@@ -1,0 +1,55 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block title %}Wishlist{%endblock %}
+{% block content %}
+
+<main class="pt-5">
+  <div class="container" style="max-width: 1000px">
+    <div class="col-12">
+      <h1 class="h2">Your Wishlist</h1>
+    </div>
+    <div class="col-12 d-flex justify-content-between">
+      <div>Manage your <b>Wishlist</b> here</div>
+    </div>
+    <hr />
+  </div>
+
+  <div class="container" style="max-width: 1000px">
+    {% if products|length == 0%}
+    <div class="h4 text-center">Your wishlist is empty ! </div>
+    <div class="h4 text-center">Go <a href="{% url 'store:index' %}">Shopping</a> Now ! </div>
+
+    {% else %}
+
+    {% for product in products %}
+    <div class="row g-3">
+
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img class="img-fluid mx-auto d-block rounded-start" alt="Responsive image" src="{{ product.image.url }}">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.title }}</h5>
+              <p class="card-text">{{ product.description|slice:":50" }}...</p>
+              <p class="card-text"><small class="text-muted">€{{ product.price }}</small></p>
+            </div>
+          </div>
+          <div class="col-md-5 col-lg-6 order-md-last p-0 order-3">
+            <div class="d-grid gap-2 ">
+              <a href="{% url 'account:add_wishlist' product.id %}" class="btn btn-primary  fw" role="button"
+                aria-disabled="true">Remove</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    {% endfor %}
+
+    {% endif %}
+  </div>
+
+  {% endblock %}

@@ -1,13 +1,12 @@
-import email
 from django.db import models
 
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin)
 from django.core.mail import send_mail
-from matplotlib.pyplot import cla
 from django_countries.fields import CountryField
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 # Create your models here.
 
 class CustomAccountManager(BaseUserManager):
@@ -62,6 +61,7 @@ class UserBase(AbstractBaseUser,PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
 
     objects = CustomAccountManager()
 

@@ -3,6 +3,8 @@ from django.db import models
 from django.urls import reverse
 from django.conf import settings
 
+from account.models import UserBase
+
 class ProductManager(models.Manager):
     def get_queryset(self):
         #return filtered objects
@@ -38,6 +40,8 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
     objects = models.Manager()
     products = ProductManager()
+
+    users_wishlist = models.ManyToManyField(UserBase, related_name="user_wishlist", blank=True)
 
     class Meta:
         verbose_name_plural = 'Products'

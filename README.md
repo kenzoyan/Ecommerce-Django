@@ -15,6 +15,8 @@ create model; how to test using coverage; find examples in bootstrap about css; 
 
 - Day4: rearrange some parts in templates; 
 
+- Day5: Add wishlist feature using message framework. 
+
 ## Reflection
 
 - Day2: Mixing python code and html code in templates are confusing and not that easy to maintain.
