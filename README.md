@@ -2,7 +2,15 @@
 
 ## Introduction
 
-This is ...
+This is an E-commerce webiste that implements user registration, product browsing, purchase services and wishlist features. 
+
+I am learning Django and Javscript through the whole process.
+
+Framework: Django, Javscript, Bootstrap.
+
+Display Image:
+
+<img src="./display.gif" alt="drawing" width="600"/>
 
 ## Learning Path
 
@@ -19,8 +27,11 @@ create model; how to test using coverage; find examples in bootstrap about css; 
 
 ## Reflection
 
-- Day2: Mixing python code and html code in templates are confusing and not that easy to maintain.
-Detaching front-end and back-end will be trending like Django & React. But I will bulid up the whole project  
+- Mixing python code and html code in templates are confusing and not that easy to maintain.
+Detaching front-end and back-end will be trending like Django & React.
+
 
 ## By Gengcong Yan, 2022
+
+- Great help from the tutorial channel - [Very Academy](https://www.youtube.com/channel/UC1mxuk7tuQT2D0qTMgKji3w)
  
